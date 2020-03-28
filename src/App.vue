@@ -1,13 +1,26 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <div class="container">
+      <div class="column is-three-fifths is-offset-one-fifth">
+        <Header/>
+        <router-view/>
+        <Footer/>
+      </div>
+
+    </div>
+
   </div>
 </template>
 
 <script>
+  import Header from './components/Header'
+  import Footer from './components/Footer'
 export default {
-  name: 'App'
+    name: 'App',
+    components: {
+        Header,
+        Footer
+    }
 }
 </script>
 
