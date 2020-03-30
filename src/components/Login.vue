@@ -1,5 +1,11 @@
 <template>
     <section>
+        <b-message v-if="msg" title="Danger" type="is-danger" aria-close-label="Close message">
+            {{msg}}
+        </b-message>
+        <b-message v-if="isMsg" title="Danger" type="is-danger" aria-close-label="Close message">
+            {{isMsg}}
+        </b-message>
         <b-field label="Email">
             <b-input type="email"
                      value=""
@@ -29,7 +35,8 @@
             return {
                 email: "",
                 password: "",
-                user: {}
+                user: {},
+                msg: ''
             }
         },
         methods: {
@@ -37,10 +44,20 @@
              login: function () {
                  let email = this.email;
                  let password = this.password;
-                 console.log(email, password);
-                 this.$store.dispatch('login',   {email, password})
-                        .then(() => {this.$router.push('/')})
-                     .catch(err => console.log('error',err));
+                 if (email && password) {
+                     this.msg='';
+                     this.$store.dispatch('login',   {email, password})
+                 } else
+                 {
+                     this.msg = 'One or more fields are empty';
+                 }
+
+
+            }
+        },
+        computed: {
+            isMsg: function () {
+                return this.$store.getters.isMsg
             }
         }
     }

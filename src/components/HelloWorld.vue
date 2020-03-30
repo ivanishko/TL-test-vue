@@ -16,9 +16,14 @@
                 </div>
               </div>
 
+                <footer class="card-footer">
+                    <div  class="card-footer-item" v-if="isRole == 'writer'"><b-button type="is-warning" >Edit</b-button></div>
+                    <div  class="card-footer-item" v-if="isRole == 'writer'"><b-button type="is-danger" >Delete</b-button></div>
+                    <div  class="card-footer-item" v-if="isRole == 'reader'"><b-button  @click="clapIt(post.id)" type="is-info" >Clap! {{post.claps}}</b-button></div>
 
-                <a href="#" class="card-footer-item">Edit</a>
-                <a href="#" class="card-footer-item">Delete</a>
+
+
+                </footer>
 
             </div>
         </div>
@@ -30,9 +35,17 @@
 
     export default {
   name: 'HelloWorld',
+       components: {
+
+       },
         data () {
           return {
               posts: [],
+          }
+        },
+        computed: {
+          isRole: function () {
+              return this.$store.getters.isRole
           }
         },
         async created() {
@@ -44,6 +57,11 @@
                 console.error(e)
             }
         },
+        methods: {
+          clapIt(id) {
+              console.log(id);
+          }
+        }
 }
 </script>
 
@@ -63,4 +81,7 @@ li {
 a {
   color: #42b983;
 }
+  .card {
+    padding: 10px;
+  }
 </style>

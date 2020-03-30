@@ -31,6 +31,8 @@
                     description: this.body,
                     createdAt: new Date(),
                     updateAt: new Date(),
+                    userId: this.$store.getters.userId,
+                    claps: 0
                 })
                     .then(() => this.$router.push('/'))
                 ;

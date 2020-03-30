@@ -8,11 +8,13 @@
                     Posts
                 </router-link>
             </div>
-
+            <span v-if="!isLoggedIn" >Hello, guest</span>
+            <span v-else>Hello, {{isUser}}</span>
             <div class="navbar-end">
                 <div class="navbar-item">
+
                     <div class="buttons">
-                        <router-link v-if="isLoggedIn" class="button is-light" to="create">
+                        <router-link v-if="isRole == 'writer'" class="button is-light" to="create">
                             Create Post
                         </router-link>
                         <router-link v-if="!isLoggedIn" class="button is-light" to="login">
@@ -41,7 +43,13 @@
         computed : {
             isLoggedIn : function(){
                 return this.$store.getters.isLoggedIn
-            }
+            },
+            isRole: function () {
+                return this.$store.getters.isRole
+            },
+            isUser: function () {
+                return this.$store.getters.isUser
+            },
         },
         methods: {
             logout: function () {
