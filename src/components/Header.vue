@@ -14,10 +14,10 @@
                 <div class="navbar-item">
 
                     <div class="buttons">
-                        <router-link v-if="isRole == 'writer'" class="button is-light" to="create">
+                        <router-link v-if="isRole == 'writer'" class="button is-light" to="/create">
                             Create Post
                         </router-link>
-                        <router-link v-if="!isLoggedIn" class="button is-light" to="login">
+                        <router-link v-if="!isLoggedIn" class="button is-light" to="/login">
                             Log in
                         </router-link>
                         <button  v-if="isLoggedIn"  class="button is-dark"  @click="logout">

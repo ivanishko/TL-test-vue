@@ -12,9 +12,10 @@ export const store =  new Vuex.Store({
     state: {
         status: '',
         role: localStorage.getItem('role') || '',
-        userId:'',
-        user: '',
-        msg: ''
+        userId:localStorage.getItem('userId') || '',
+        user: localStorage.getItem('user') || '',
+        msg: '',
+        post: {}
     },
     mutations: {
         auth_request(state){
@@ -35,8 +36,14 @@ export const store =  new Vuex.Store({
             state.status = '';
             state.role = '';
             state.userId = '';
+            state.user = '';
             state.msg = '';
         },
+        prepareEdit(state, post){
+            state.post = post
+
+        }
+
 
 
     },
@@ -49,23 +56,26 @@ export const store =  new Vuex.Store({
 
 
 
-                      const res = axios.get(BASEURL + `/users/?login=` + email)
+                      axios.get(BASEURL + `/users/?login=` + email)
                           .then(resp => {
                               if (resp.data.length !== 0) {
                                   this.user = resp.data;
 
                                   let userInDB = {...this.user[0]};
                                   const role = userInDB.role;
+                                  const user = userInDB.login;
 
                                   if (password == userInDB.password) {
-                                      console.log('this user has autorized!');
+                                      console.log('the user has autorised!');
                                       localStorage.setItem('role', role);
+                                      localStorage.setItem('user', user);
+                                      localStorage.setItem('userId', userInDB.id);
                                       commit('auth_success',userInDB);
                                       router.push('/')
                                   } else {
                                       let msg = 'Wrong  password or  login';
-                                      commit('auth_error', msg)
-                                      console.log('this user did not autorized!')
+                                      commit('auth_error', msg);
+                                      console.log('the user did not autorised!')
                                   }
 
                               }
@@ -85,6 +95,8 @@ export const store =  new Vuex.Store({
               return new Promise((resolve, reject) => {
                       commit('logout');
                       localStorage.removeItem('role');
+                      localStorage.removeItem('user');
+                      localStorage.removeItem('userId');
                       resolve()
                   })
               }
@@ -97,7 +109,8 @@ export const store =  new Vuex.Store({
         isUser: state => state.user,
         isMsg: state => state.msg,
         userId: state => state.userId,
-        authStatus: state => state.status
+        authStatus: state => state.status,
+
     }
 
 });

@@ -26,7 +26,7 @@
 
         methods: {
             async addPost() {
-                const res = await axios.post(baseURL, {
+                await axios.post(baseURL, {
                     title: this.title,
                     description: this.body,
                     createdAt: new Date(),

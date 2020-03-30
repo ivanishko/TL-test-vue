@@ -17,7 +17,7 @@
               </div>
 
                 <footer class="card-footer">
-                    <div  class="card-footer-item" v-if="isRole == 'writer'"><b-button type="is-warning" >Edit</b-button></div>
+                    <div  class="card-footer-item" v-if="isRole == 'writer'"><router-link :to="'/edit/' + post.id"><b-button type="is-warning" >Edit</b-button></router-link></div>
                     <div  class="card-footer-item" v-if="isRole == 'writer'"><b-button type="is-danger" >Delete</b-button></div>
                     <div  class="card-footer-item" v-if="isRole == 'reader'"><b-button  @click="clapIt(post.id)" type="is-info" >Clap! {{post.claps}}</b-button></div>
 
@@ -34,7 +34,7 @@
     import axios from 'axios';
 
     export default {
-  name: 'HelloWorld',
+    name: 'HelloWorld',
        components: {
 
        },
@@ -50,7 +50,7 @@
         },
         async created() {
             try {
-                const res = await axios.get(`http://localhost:3000/posts`)
+                await axios.get(`http://localhost:3000/posts`);
 
                 this.posts = res.data;
             } catch(e) {
@@ -62,7 +62,7 @@
               console.log(id);
           }
         }
-}
+    }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
