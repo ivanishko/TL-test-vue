@@ -4,15 +4,24 @@ import Vue from 'vue'
 import App from './App'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
+import {store} from './store'
 
 import router from './router'
+
+// Vue.prototype.$http = Axios;
+// const token = localStorage.getItem('token')
+// if (token) {
+//     Vue.prototype.$http.defaults.headers.common['Authorization'] = token
+// };
+
 
 Vue.config.productionTip = false
 Vue.use(Buefy);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  router,
+    router,
+    store,
   components: { App },
   template: '<App/>'
-})
+});

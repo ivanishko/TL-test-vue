@@ -4,20 +4,23 @@
 
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" href="/">
+                <router-link class="navbar-item" to="/">
                     Posts
-                </a>
+                </router-link>
             </div>
 
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-light" href="/#/create/">
+                        <router-link v-if="isLoggedIn" class="button is-light" to="create">
                             Create Post
-                        </a>
-                        <a class="button is-light" href="/#/login">
+                        </router-link>
+                        <router-link v-if="!isLoggedIn" class="button is-light" to="login">
                             Log in
-                        </a>
+                        </router-link>
+                        <button  v-if="isLoggedIn"  class="button is-dark"  @click="logout">
+                            Logout
+                        </button>
                     </div>
                 </div>
             </div>
@@ -27,8 +30,29 @@
 </template>
 
 <script>
+
     export default {
-        name: "Header"
+        name: "Header",
+        data(){
+            return {
+
+            }
+        },
+        computed : {
+            isLoggedIn : function(){
+                return this.$store.getters.isLoggedIn
+            }
+        },
+        methods: {
+            logout: function () {
+                this.$store.dispatch('logout')
+                    .then(() => {
+                        this.$router.push('/')
+                    });
+
+                console.log('logout!')
+            }
+        }
     }
 </script>
 
