@@ -17,56 +17,38 @@
     {
       "title": "Название поста",
       "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. ",
-      "claps": 0,
+      "claps": 21,
       "createdAt": "2019-09-29T00:00:00.000Z",
-      "updateAt": "2020-03-30T19:46:35.437Z",
+      "updateAt": "2020-03-31T12:31:59.977Z",
       "userId": 1,
       "id": 1
     },
     {
       "title": "Название поста2",
       "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. ",
-      "claps": 0,
+      "claps": 33,
       "createdAt": "2012-09-29T00:00:00.000Z",
-      "updateAt": "2020-03-30T19:25:30.781Z",
+      "updateAt": "2020-03-31T12:34:01.310Z",
       "userId": 1,
       "id": 2
     },
     {
-      "title": "qqqqqqqqqqqqqqqq",
-      "description": "werwqerqwerqweqweqweqwe",
-      "claps": 0,
-      "createdAt": "2020-03-30T19:30:36.021Z",
-      "updateAt": "2020-03-30T19:36:45.105Z",
+      "title": "rwerwer",
+      "description": "qwqwwe",
+      "claps": 65,
+      "createdAt": "2020-03-31T10:22:21.234Z",
+      "updateAt": "2020-03-31T12:35:28.368Z",
       "userId": 1,
-      "id": 6
+      "id": 3
     },
     {
-      "title": "QQQQ",
-      "description": "aaaaAAAA",
-      "claps": 0,
-      "createdAt": "2020-03-30T19:32:46.772Z",
-      "updateAt": "2020-03-30T19:33:17.852Z",
+      "title": "weqw",
+      "description": "qweqwe",
+      "claps": 31,
+      "createdAt": "2020-03-31T11:58:56.141Z",
+      "updateAt": "2020-03-31T12:35:15.976Z",
       "userId": 1,
-      "id": 8
-    },
-    {
-      "title": "zxcv",
-      "description": "zcxv",
-      "createdAt": "2020-03-30T19:36:57.243Z",
-      "updateAt": "2020-03-30T19:36:57.243Z",
-      "userId": 1,
-      "claps": 0,
-      "id": 9
-    },
-    {
-      "title": "werwe",
-      "description": "werwer",
-      "createdAt": "2020-03-30T19:38:22.167Z",
-      "updateAt": "2020-03-30T19:38:22.167Z",
-      "userId": 1,
-      "claps": 0,
-      "id": 10
+      "id": 4
     }
   ]
 }

@@ -18,11 +18,11 @@
 
                 <footer class="card-footer">
                     <div  class="card-footer-item" v-if="isRole == 'writer'"><router-link :to="'/edit/' + post.id"><b-button type="is-warning" >Edit</b-button></router-link></div>
-                    <div  class="card-footer-item" v-if="isRole == 'writer'"><b-button type="is-danger" >Delete</b-button></div>
-                    <div  class="card-footer-item" v-if="isRole == 'reader'"><b-button  @click="clapIt(post.id)" type="is-info" >Clap! {{post.claps}}</b-button></div>
-
-
-
+                    <div  class="card-footer-item" v-if="isRole == 'writer'"><b-button type="is-danger" @click="confirmCustomDelete(post.id)">Delete</b-button></div>
+                    <div  class="card-footer-item" v-if="isRole == 'reader'"><b-button type="is-info"  @click="clapIt(post.id)">
+                        Clap!
+                        <span>{{clapses[post.id - 1]}}</span>
+                    </b-button></div>
                 </footer>
 
             </div>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+    const BASEURL = `http://localhost:3000`;
     import axios from 'axios';
 
     export default {
@@ -41,26 +42,78 @@
         data () {
           return {
               posts: [],
+              clapses: []
           }
         },
         computed: {
-          isRole: function () {
+            isRole: function () {
               return this.$store.getters.isRole
-          }
+            },
+            claps: function (){
+                return this.posts.map(el => el.claps);
+            }
+
+        },
+        updated(){
+
         },
         async created() {
             try {
-                await axios.get(`http://localhost:3000/posts`);
+               const res = await axios.get(BASEURL + `/posts`);
 
                 this.posts = res.data;
+                this.clapses = this.claps
             } catch(e) {
                 console.error(e)
             }
         },
         methods: {
-          clapIt(id) {
-              console.log(id);
-          }
+            clapIt: function(id) {
+                axios.get(BASEURL + `/posts/` + id)
+                    .then((resolve) => {
+                            axios.put(BASEURL + `/posts/` + id, {
+                                title: resolve.data.title,
+                                description: resolve.data.description,
+                                claps: ++resolve.data.claps ,
+                                createdAt: resolve.data.createdAt,
+                                updateAt: new Date(),
+                                userId: resolve.data.userId
+                                })
+                        .catch(error => {console.log(error);
+                        })
+                }).then();
+                console.log(this.clapses);
+                this.clapses[id - 1] += 1;
+            },
+            confirmCustomDelete(id) {
+                this.$buefy.dialog.confirm({
+                    title: 'Deleting post',
+                    message: 'Are you sure you want to <b>delete</b> this post?',
+                    confirmText: 'Delete Post',
+                    type: 'is-danger',
+                    hasIcon: true,
+                    onConfirm: () => {
+                        this.deletePost(id);
+
+                    }
+                })
+            },
+            async deletePost(id) {
+                await axios.delete(BASEURL +'/posts/' + id)
+                    .then((resolve) => {
+
+                        console.log('this.posts',this.posts);
+                        let allPost = [...this.posts];
+                        console.log('allPost',allPost);
+                        this.posts = this.posts.filter(function( obj ) {
+                            return obj.id !== id;
+                        });
+                        this.$buefy.toast.open('Post deleted!');
+                    })
+                    .catch(error => {
+                    console.log(error);
+                });
+            }
         }
     }
 </script>
