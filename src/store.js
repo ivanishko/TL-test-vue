@@ -97,6 +97,7 @@ export const store =  new Vuex.Store({
                       localStorage.removeItem('role');
                       localStorage.removeItem('user');
                       localStorage.removeItem('userId');
+                      localStorage.removeItem('like');
                       resolve()
                   })
               }

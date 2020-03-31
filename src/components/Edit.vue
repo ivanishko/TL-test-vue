@@ -1,7 +1,5 @@
 <template>
     <div>
-
-        {{id}}
         <b-field label="Title">
             <b-input v-model="title" :value="title"></b-input>
         </b-field>

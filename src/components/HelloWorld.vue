@@ -2,7 +2,9 @@
   <section class="section">
         <div class="container ">
           <h1 class="title">Posts</h1>
-
+            <div v-if="isRole == 'reader'" class="level-right">
+            Your likes: {{like}}
+            </div>
             <div class="card" v-for="post of posts" :key="post.id">
               <div class="card-content">
                 <div class="media-content">
@@ -21,7 +23,7 @@
                     <div  class="card-footer-item" v-if="isRole == 'writer'"><b-button type="is-danger" @click="confirmCustomDelete(post.id)">Delete</b-button></div>
                     <div  class="card-footer-item" v-if="isRole == 'reader'"><b-button type="is-info"  @click="clapIt(post.id)">
                         Clap!
-                        <span>{{clapses[post.id - 1]}}</span>
+                        <span>{{claps[post.id - 1]}}</span>
                     </b-button></div>
                 </footer>
 
@@ -42,7 +44,8 @@
         data () {
           return {
               posts: [],
-              clapses: []
+              clapses: [],
+              like: +localStorage.getItem('like') || 0
           }
         },
         computed: {
@@ -55,7 +58,10 @@
 
         },
         updated(){
-
+            if (this.isRole == 'reader') {
+                localStorage.setItem('like', this.like)}
+            else
+                {localStorage.removeItem('like')};
         },
         async created() {
             try {
@@ -84,6 +90,7 @@
                 }).then();
                 console.log(this.clapses);
                 this.clapses[id - 1] += 1;
+                this.like += 1;
             },
             confirmCustomDelete(id) {
                 this.$buefy.dialog.confirm({
