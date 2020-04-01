@@ -15,11 +15,11 @@
   ],
   "posts": [
     {
-      "title": "Название поста",
+      "title": "Название поста1",
       "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. ",
       "claps": 23,
       "createdAt": "2019-09-29T00:00:00.000Z",
-      "updateAt": "2020-04-01T00:00:11.894Z",
+      "updateAt": "2020-04-01T00:54:55.255Z",
       "userId": 1,
       "id": 1
     },
@@ -98,29 +98,38 @@
     {
       "title": "10qwe",
       "description": "qwe",
-      "claps": 1,
+      "claps": 4,
       "createdAt": "2020-03-31T23:15:06.373Z",
-      "updateAt": "2020-04-01T00:00:18.251Z",
+      "updateAt": "2020-04-01T00:18:18.156Z",
       "userId": "1",
       "id": 10
     },
     {
       "title": "wqeqw 11",
       "description": "qweqwe",
-      "claps": 0,
+      "claps": 3,
       "createdAt": "2020-04-01T00:12:43.432Z",
-      "updateAt": "2020-04-01T00:14:39.065Z",
+      "updateAt": "2020-04-01T00:18:14.368Z",
       "userId": "1",
       "id": 11
     },
     {
       "title": "qweqwe 12",
       "description": "qweqweqwe",
-      "claps": 0,
+      "claps": 4,
       "createdAt": "2020-04-01T00:12:51.825Z",
-      "updateAt": "2020-04-01T00:14:45.911Z",
+      "updateAt": "2020-04-01T00:47:24.305Z",
       "userId": "1",
       "id": 12
+    },
+    {
+      "title": "qweqw13",
+      "description": "qwewq",
+      "claps": 3,
+      "createdAt": "2020-04-01T00:47:05.734Z",
+      "updateAt": "2020-04-01T00:55:04.503Z",
+      "userId": "1",
+      "id": 13
     }
   ]
 }

@@ -12,7 +12,6 @@
 
 <script>
     import axios from 'axios';
-    const BASEURL = `http://localhost:3000`;
 
     export default {
         name: "Edit",
@@ -32,11 +31,12 @@
             id: function(){
                 return this.$route.params.id;
             },
-
-
+            baseUrl:function(){
+                return this.$store.getters.baseUrl;
+            }
         },
         created() {
-            axios.get(BASEURL + `/posts/` + this.id)
+            axios.get(this.baseUrl + `/posts/` + this.id)
                 .then(resp => {
                     console.log('post',resp.data);
                     this.title = resp.data.title;
@@ -49,7 +49,7 @@
         },
         methods: {
             editThis: function() {
-                axios.put(BASEURL + `/posts/` + this.id, {
+                axios.put(this.baseUrl  + `/posts/` + this.id, {
                     title: this.title,
                     description: this.body,
                     claps: this.claps,

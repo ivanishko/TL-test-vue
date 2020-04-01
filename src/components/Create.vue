@@ -14,7 +14,7 @@
 <script>
     import axios from 'axios';
 
-    const baseURL = `http://localhost:3000/posts`;
+
     export default {
         name: "Create",
         data(){
@@ -26,7 +26,7 @@
 
         methods: {
             async addPost() {
-                await axios.post(baseURL, {
+                await axios.post(this.baseURL + '/posts', {
                     title: this.title,
                     description: this.body,
                     createdAt: new Date(),
@@ -40,6 +40,11 @@
 
                 this.title = '';
                 this.body = '';
+            }
+        },
+        computed: {
+            baseURL: function(){
+                return this.$store.getters.baseUrl;
             }
         }
     }

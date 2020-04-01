@@ -5,11 +5,17 @@
 ## Build Setup
 
 ``` bash
-# install dependencies
+# Установить проект
 npm install
 
-# serve with hot reload at localhost:8080
+# Запустить на localhost:8080
 npm run dev
+
+# Чтобы получить данные  из файла db.json нужно иметь json-server на localhost:3000
+и в папке проекта запустить 
+json-server db.json -w
+
+# baseUrl localhost:3000 можно изменить на другой в файле src/store.js
 
 # build for production with minification
 npm run build

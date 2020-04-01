@@ -14,7 +14,7 @@
                 <div class="content">
                   {{post.description}}
                   <br>
-                  <time datetime="2016-1-1">{{post.createdAt}}</time>
+                  <time>{{formatDate(post.createdAt)}}</time>
                 </div>
               </div>
 
@@ -35,9 +35,7 @@
                 :per-page="perPage"
                 :range-before="rangeBefore"
                 :range-after="rangeAfter"
-                :order="order"
-                :size="size"
-                :simple="isSimple"
+
                 :rounded="isRounded"
                 :icon-prev="prevIcon"
                 :icon-next="nextIcon"
@@ -47,11 +45,10 @@
 </template>
 
 <script>
-    const BASEURL = `http://localhost:3000`;
     import axios from 'axios';
 
     export default {
-    name: 'HelloWorld',
+    name: 'Main',
        components: {
 
        },
@@ -81,6 +78,9 @@
             paginatedItems() {
                 let page_number = this.current  - 1;
                 return this.posts.slice(page_number * this.perPage, (page_number + 1) * this.perPage);
+            },
+            baseURL: function(){
+                return this.$store.getters.baseUrl;
             }
         },
         updated(){
@@ -91,7 +91,7 @@
         },
         async created() {
             try {
-               const res = await axios.get(BASEURL + `/posts`);
+               const res = await axios.get(this.baseURL + '/posts');
                 this.posts = res.data;
                 this.clapses = this.claps;
                 this.total = this.posts.length;
@@ -101,9 +101,9 @@
         },
         methods: {
             clapIt: function(id) {
-                axios.get(BASEURL + `/posts/` + id)
+                axios.get(this.baseURL + `/posts/` + id)
                     .then((resolve) => {
-                            axios.put(BASEURL + `/posts/` + id, {
+                            axios.put(this.baseURL + `/posts/` + id, {
                                 title: resolve.data.title,
                                 description: resolve.data.description,
                                 claps: ++resolve.data.claps ,
@@ -132,9 +132,8 @@
                 })
             },
             async deletePost(id) {
-                await axios.delete(BASEURL +'/posts/' + id)
+                await axios.delete(this.baseURL  +'/posts/' + id)
                     .then((resolve) => {
-
                         console.log('this.posts',this.posts);
                         let allPost = [...this.posts];
                         console.log('allPost',allPost);
@@ -146,6 +145,16 @@
                     .catch(error => {
                     console.log(error);
                 });
+            },
+            formatDate: function(d) {
+                var date = new Date(d);
+                let dd = date.getDate();
+                        if (dd < 10) dd = '0' + dd;
+                let mm = date.getMonth() + 1;
+                        if (mm < 10) mm = '0' + mm;
+                let yy = date.getFullYear() % 100;
+                        if (yy < 10) yy = '0' + yy;
+                return dd + '.' + mm + '.' + yy;
             }
         }
     }
@@ -165,4 +174,7 @@ a {
 nav.pagination {
     margin: 10px 0;
 }
+    time {
+        font-style: italic;
+    }
 </style>

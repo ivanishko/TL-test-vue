@@ -6,8 +6,6 @@ import router from './router'
 
 Vue.use(Vuex);
 
-const BASEURL = `http://localhost:3000`;
-
 export const store =  new Vuex.Store({
     state: {
         status: '',
@@ -15,7 +13,9 @@ export const store =  new Vuex.Store({
         userId:localStorage.getItem('userId') || '',
         user: localStorage.getItem('user') || '',
         msg: '',
-        post: {}
+        post: {},
+
+        baseUrl:  `http://localhost:3000`
     },
     mutations: {
         auth_request(state){
@@ -56,7 +56,7 @@ export const store =  new Vuex.Store({
 
 
 
-                      axios.get(BASEURL + `/users/?login=` + email)
+                      axios.get(this.state.baseUrl + `/users/?login=` + email)
                           .then(resp => {
                               if (resp.data.length !== 0) {
                                   this.user = resp.data;
@@ -111,7 +111,7 @@ export const store =  new Vuex.Store({
         isMsg: state => state.msg,
         userId: state => state.userId,
         authStatus: state => state.status,
-
+        baseUrl: state => state.baseUrl
     }
 
 });
