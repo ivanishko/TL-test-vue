@@ -60,6 +60,7 @@ export const store =  new Vuex.Store({
                           .then(resp => {
                               if (resp.data.length !== 0) {
                                   this.user = resp.data;
+                                  console.log('this.user', ...this.user);
 
                                   let userInDB = {...this.user[0]};
                                   const role = userInDB.role;
