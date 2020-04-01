@@ -5,7 +5,7 @@
             <div v-if="isRole == 'reader'" class="level-right">
             Your likes: {{like}}
             </div>
-            <div class="card" v-for="post of posts" :key="post.id">
+            <div class="card" v-for="post in paginatedItems" :key="post.id">
               <div class="card-content">
                 <div class="media-content">
                   <p class="title is-4">{{post.title}}</p>
@@ -29,7 +29,21 @@
 
             </div>
         </div>
-  </section>
+        <b-pagination
+                :total="total"
+                :current.sync="current"
+                :per-page="perPage"
+                :range-before="rangeBefore"
+                :range-after="rangeAfter"
+                :order="order"
+                :size="size"
+                :simple="isSimple"
+                :rounded="isRounded"
+                :icon-prev="prevIcon"
+                :icon-next="nextIcon"
+                >
+        </b-pagination>
+    </section>
 </template>
 
 <script>
@@ -45,7 +59,16 @@
           return {
               posts: [],
               clapses: [],
-              like: +localStorage.getItem('like') || 0
+              like: +localStorage.getItem('like') || 0,
+
+              total: this.total,
+              current: 1,
+              perPage: 10,
+              prevIcon: 'chevron-left',
+              nextIcon: 'chevron-right',
+              isRounded: true,
+              rangeBefore: 0,
+              rangeAfter:2,
           }
         },
         computed: {
@@ -54,8 +77,11 @@
             },
             claps: function (){
                 return this.posts.map(el => el.claps);
+            },
+            paginatedItems() {
+                let page_number = this.current  - 1;
+                return this.posts.slice(page_number * this.perPage, (page_number + 1) * this.perPage);
             }
-
         },
         updated(){
             if (this.isRole == 'reader') {
@@ -66,9 +92,9 @@
         async created() {
             try {
                const res = await axios.get(BASEURL + `/posts`);
-
                 this.posts = res.data;
-                this.clapses = this.claps
+                this.clapses = this.claps;
+                this.total = this.posts.length;
             } catch(e) {
                 console.error(e)
             }
@@ -130,18 +156,13 @@
 h1, h2 {
   font-weight: normal;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
 a {
   color: #42b983;
 }
-  .card {
+.card {
     padding: 10px;
-  }
+}
+nav.pagination {
+    margin: 10px 0;
+}
 </style>
