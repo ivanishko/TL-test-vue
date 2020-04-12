@@ -22,7 +22,7 @@
                     <div  class="card-footer-item" v-if="isRole == 'writer'"><router-link :to="'/edit/' + post.id"><b-button type="is-warning" >Edit</b-button></router-link></div>
                     <div  class="card-footer-item" v-if="isRole == 'writer'"><b-button type="is-danger" @click="confirmCustomDelete(post.id)">Delete</b-button></div>
                     <div  class="card-footer-item" v-if="isRole == 'reader'">
-                      <b-button type="is-info"  @click="clapIt(post)">
+                      <b-button type="is-info"  @click="clapIt(post)" icon-left="thumb-up">
                         Clap!
                         <span>{{post.claps}}</span>
                     </b-button>
