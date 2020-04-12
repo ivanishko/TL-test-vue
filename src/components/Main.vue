@@ -21,10 +21,12 @@
                 <footer class="card-footer">
                     <div  class="card-footer-item" v-if="isRole == 'writer'"><router-link :to="'/edit/' + post.id"><b-button type="is-warning" >Edit</b-button></router-link></div>
                     <div  class="card-footer-item" v-if="isRole == 'writer'"><b-button type="is-danger" @click="confirmCustomDelete(post.id)">Delete</b-button></div>
-                    <div  class="card-footer-item" v-if="isRole == 'reader'"><b-button type="is-info"  @click="clapIt(post.id)">
+                    <div  class="card-footer-item" v-if="isRole == 'reader'">
+                      <b-button type="is-info"  @click="clapIt(post)">
                         Clap!
-                        <span>{{claps[post.id - 1]}}</span>
-                    </b-button></div>
+                        <span>{{post.claps}}</span>
+                    </b-button>
+                    </div>
                 </footer>
 
             </div>
@@ -55,12 +57,11 @@
         data () {
           return {
               posts: [],
-              clapses: [],
               like: +localStorage.getItem('like') || 0,
 
               total: this.total,
               current: 1,
-              perPage: 10,
+              perPage: 4,
               prevIcon: 'chevron-left',
               nextIcon: 'chevron-right',
               isRounded: true,
@@ -88,36 +89,41 @@
                 localStorage.setItem('like', this.like)}
             else
                 {localStorage.removeItem('like')};
-        },
+            },
         async created() {
             try {
-               const res = await axios.get(this.baseURL + '/posts');
-                this.posts = res.data;
-                this.clapses = this.claps;
+                const res = await axios.get(this.baseURL + '/posts');
+                this.posts = res.data.reverse();
                 this.total = this.posts.length;
             } catch(e) {
                 console.error(e)
             }
         },
         methods: {
-            clapIt: function(id) {
-                axios.get(this.baseURL + `/posts/` + id)
-                    .then((resolve) => {
-                            axios.put(this.baseURL + `/posts/` + id, {
-                                title: resolve.data.title,
-                                description: resolve.data.description,
-                                claps: ++resolve.data.claps ,
-                                createdAt: resolve.data.createdAt,
-                                updateAt: new Date(),
-                                userId: resolve.data.userId
-                                })
-                        .catch(error => {console.log(error);
-                        })
-                }).then();
-                console.log(this.clapses);
-                this.clapses[id - 1] += 1;
-                this.like += 1;
+            clapIt: function(post) {
+                axios.patch(this.baseURL + `/posts/` + post.id, {
+                                claps: ++post.claps
+                            }).then(response => {
+                                post = response.data;
+                                this.like += 1;
+                                let index = -1;
+                                this.posts.map((item, i) => {
+                                    if (item.id === response.data.id) {
+                                        index = i;
+                                    }
+                                });
+                                if (index !== -1) {
+                                    this.posts[index] = {
+                                        ...response.data
+                                    }
+                                  }
+
+                              })
+                    .catch(error => {console.log(error);
+                        this.$buefy.toast.open('Some error!!');
+                    });
             },
+
             confirmCustomDelete(id) {
                 this.$buefy.dialog.confirm({
                     title: 'Deleting post',
@@ -127,10 +133,10 @@
                     hasIcon: true,
                     onConfirm: () => {
                         this.deletePost(id);
-
                     }
                 })
             },
+
             async deletePost(id) {
                 await axios.delete(this.baseURL  +'/posts/' + id)
                     .then((resolve) => {
