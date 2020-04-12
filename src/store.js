@@ -9,9 +9,9 @@ Vue.use(Vuex);
 export const store =  new Vuex.Store({
     state: {
         status: '',
-        role: localStorage.getItem('role') || '',
-        userId:localStorage.getItem('userId') || '',
-        user: localStorage.getItem('user') || '',
+        role: null,
+        userId: null,
+        user: null,
         msg: '',
         post: {},
 
@@ -61,16 +61,9 @@ export const store =  new Vuex.Store({
                               if (resp.data.length !== 0) {
                                   this.user = resp.data;
                                   console.log('this.user', ...this.user);
-
                                   let userInDB = {...this.user[0]};
-                                  const role = userInDB.role;
-                                  const user = userInDB.login;
-
                                   if (password == userInDB.password) {
                                       console.log('the user has autorised!');
-                                      localStorage.setItem('role', role);
-                                      localStorage.setItem('user', user);
-                                      localStorage.setItem('userId', userInDB.id);
                                       commit('auth_success',userInDB);
                                       router.push('/')
                                   } else {
@@ -78,7 +71,6 @@ export const store =  new Vuex.Store({
                                       commit('auth_error', msg);
                                       console.log('the user did not autorised!')
                                   }
-
                               }
                               else {
                                   let msg = 'Wrong login';
@@ -95,9 +87,6 @@ export const store =  new Vuex.Store({
         logout({commit}) {
               return new Promise((resolve, reject) => {
                       commit('logout');
-                      localStorage.removeItem('role');
-                      localStorage.removeItem('user');
-                      localStorage.removeItem('userId');
                       localStorage.removeItem('like');
                       resolve()
                   })
