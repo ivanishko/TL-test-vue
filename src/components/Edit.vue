@@ -4,7 +4,7 @@
             <b-input v-model="title" :value="title"></b-input>
         </b-field>
         <b-field label="Post">
-            <b-input maxlength="200"  :value="body" type="textarea" v-model="body"></b-input>
+            <b-input maxlength="2000"  :value="body" type="textarea" v-model="body"></b-input>
         </b-field>
         <b-button type="is-primary" @click="editThis">Save</b-button>
     </div>
@@ -41,21 +41,14 @@
                     console.log('post',resp.data);
                     this.title = resp.data.title;
                     this.body = resp.data.description;
-                    this.claps = resp.data.claps;
-                    this.createdAt = resp.data.createdAt;
-                    this.updateAt = resp.data.updateAt;
-                    this.userId = resp.data.userId;
                 });
         },
         methods: {
             editThis: function() {
-                axios.put(this.baseUrl  + `/posts/` + this.id, {
+                axios.patch(this.baseUrl  + `/posts/` + this.id, {
                     title: this.title,
                     description: this.body,
-                    claps: this.claps,
-                    createdAt: this.createdAt,
                     updateAt: new Date(),
-                    userId: this.userId
                 })
                     .then(() => this.$router.push('/'))
                     .catch(error => {console.log(error);
