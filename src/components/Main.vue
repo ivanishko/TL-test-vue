@@ -19,8 +19,8 @@
               </div>
 
                 <footer class="card-footer">
-                    <div  class="card-footer-item" v-if="isRole == 'writer'"><router-link :to="'/edit/' + post.id"><b-button type="is-warning" >Edit</b-button></router-link></div>
-                    <div  class="card-footer-item" v-if="isRole == 'writer'"><b-button type="is-danger" @click="confirmCustomDelete(post.id)">Delete</b-button></div>
+                    <div  class="card-footer-item" v-if="isRole == 'writer'"><router-link :to="'/edit/' + post.id"><b-button type="is-warning" icon-left="pencil">Edit</b-button></router-link></div>
+                    <div  class="card-footer-item" v-if="isRole == 'writer'"><b-button type="is-danger" @click="confirmCustomDelete(post.id)" icon-left="delete">Delete</b-button></div>
                     <div  class="card-footer-item" v-if="isRole == 'reader'">
                       <b-button type="is-info"  @click="clapIt(post)" icon-left="thumb-up">
                         Clap!
